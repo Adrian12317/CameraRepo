@@ -9,6 +9,7 @@ const MySwal = withReactContent(Swal)
 export default function CameraScreen({photos,setPhotos}) {
   const [hasPermission, setHasPermission] = useState(null);
   const [type, setType] = useState(Camera.Constants.Type.back);
+  const [flashMode, setFlashMode] = useState("off");
   let camera = Camera;
    
    const __takePicture = async () => {
@@ -17,9 +18,6 @@ export default function CameraScreen({photos,setPhotos}) {
 
      MySwal.fire({
         title: '¿Deseas guardar esta imagen?',
-        imageUrl: `${photo.base64}`,
-        imageHeight: photo.height,
-        imageAlt: '',
         showCancelButton: true,
         confirmButtonColor: '#5cca0e',
         cancelButtonColor: '#d33',
@@ -38,6 +36,15 @@ export default function CameraScreen({photos,setPhotos}) {
     setType(!type);
   };
   
+  const __handleFlashMode = () => {
+    if (flashMode === "on") {
+      setFlashMode("off");
+    } else if (flashMode === "off") {
+      setFlashMode("on");
+    } else {
+      setFlashMode("auto");
+    }
+  };
 
   useEffect(() => {
     (async () => {
@@ -61,6 +68,7 @@ export default function CameraScreen({photos,setPhotos}) {
     <View style={styles.container}>
       <Camera
        style={styles.camera}
+       flashMode={flashMode}
        type={type}
        ref={(r) => {
         camera = r; //Passing always the current reference to the global camera
@@ -72,6 +80,12 @@ export default function CameraScreen({photos,setPhotos}) {
             onPress={__switchCamera}
             >
             <Text style={styles.text}> Flip </Text>
+          </TouchableOpacity>
+          <TouchableOpacity
+            style={styles.button}
+            onPress={__handleFlashMode}
+            >
+            <Text style={styles.text}> Flash </Text>
           </TouchableOpacity>
         </View>
         <View style={styles.cameraBottomContainer}>
