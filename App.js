@@ -41,9 +41,9 @@ export default function App() {
       })}
       >
        
-       <Tab.Screen name="Gallery" >{(props) => <GalleryScreen{...props} photos={photos} />}</Tab.Screen>
-        <Tab.Screen name="Camera" >{(props) => <CameraScreen{...props} photos={photos} setPhotos={setPhotos} />}</Tab.Screen>
        
+        <Tab.Screen name="Camera" >{(props) => <CameraScreen{...props} photos={photos} setPhotos={setPhotos} />}</Tab.Screen>
+        <Tab.Screen name="Gallery" >{(props) => <GalleryScreen{...props} photos={photos} />}</Tab.Screen>
         <Tab.Screen name="Profile" >{(props) => <Profile{...props} setPhotos={setPhotos} />}</Tab.Screen>
         
       </Tab.Navigator>
