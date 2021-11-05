@@ -1,34 +1,40 @@
 import React, { useState, useEffect } from 'react';
 import { StyleSheet ,Text, View, TouchableOpacity } from 'react-native';
 import { Camera } from 'expo-camera';
-import Swal from 'sweetalert2'
-import withReactContent from 'sweetalert2-react-content'
+// import Swal from 'sweetalert2'
+// import withReactContent from 'sweetalert2-react-content'
+import { useIsFocused } from "@react-navigation/native";
 
-const MySwal = withReactContent(Swal)
+// const MySwal = withReactContent(Swal)
 
 export default function CameraScreen({photos,setPhotos}) {
   const [hasPermission, setHasPermission] = useState(null);
   const [type, setType] = useState(Camera.Constants.Type.back);
   const [flashMode, setFlashMode] = useState("off");
   let camera = Camera;
-   
+  const isFocused = useIsFocused();
+
+ 
    const __takePicture = async () => {
      
      const photo = await camera.takePictureAsync();
 
-     MySwal.fire({
-        title: '¿Deseas guardar esta imagen?',
-        showCancelButton: true,
-        confirmButtonColor: '#5cca0e',
-        cancelButtonColor: '#d33',
-        confirmButtonText: 'Guardar',
-        cancelButtonText: 'Cancelar'
-      }).then((result) => {
-        if (result.isConfirmed) {
-            setPhotos([photo,...photos])
-          console.log(photo);
-        }
-      })
+    //  MySwal.fire({
+    //     title: '¿Deseas guardar esta imagen?',
+    //     showCancelButton: true,
+    //     confirmButtonColor: '#5cca0e',
+    //     cancelButtonColor: '#d33',
+    //     confirmButtonText: 'Guardar',
+    //     cancelButtonText: 'Cancelar'
+    //   }).then((result) => {
+    //     if (result.isConfirmed) {
+           
+    //       console.log(photo);
+    //     }
+    //   })
+   console.log(photo);
+  setPhotos([photo,...photos])
+      
      
    };
 
@@ -65,30 +71,22 @@ export default function CameraScreen({photos,setPhotos}) {
 
 
   return (
+ 
+  <View style={styles.container}> 
+
+
+  {isFocused ? (
     <View style={styles.container}>
-      <Camera
-       style={styles.camera}
-       flashMode={flashMode}
-       type={type}
-       ref={(r) => {
-        camera = r; //Passing always the current reference to the global camera
-      }}
-      >
-        <View style={styles.buttonContainer}>
-          <TouchableOpacity
-            style={styles.button}
-            onPress={__switchCamera}
-            >
-            <Text style={styles.text}> Flip </Text>
-          </TouchableOpacity>
-          <TouchableOpacity
-            style={styles.button}
-            onPress={__handleFlashMode}
-            >
-            <Text style={styles.text}> Flash </Text>
-          </TouchableOpacity>
-        </View>
-        <View style={styles.cameraBottomContainer}>
+    <Camera
+    style={styles.camera}
+    flashMode={flashMode}
+    type={type}
+    ref={(r) => {
+      camera = r; //Passing always the current reference to the global camera
+    }}
+    >
+     
+     <View style={styles.cameraBottomContainer}>
           <View style={styles.cameraBottomInnerContainer}>
             <TouchableOpacity
               onPress={__takePicture}
@@ -96,9 +94,18 @@ export default function CameraScreen({photos,setPhotos}) {
             />
           </View>
         </View>
-       
-      </Camera>
+    
+    </Camera>
+  </View>
+
+    ) : (
+      <>
+        <Text></Text>
+      </>
+    )}
     </View>
+
+    
   );
 
   

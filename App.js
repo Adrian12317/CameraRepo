@@ -11,7 +11,7 @@ import Profile from './pages/Profile';
 const Tab = createBottomTabNavigator();
 
 export default function App() {
-  const [photos,setPhotos] = useState([])  
+  const [photos,setPhotos] = useState([])
 
   return (
     <NavigationContainer>
@@ -19,19 +19,19 @@ export default function App() {
         tabBarIcon:({focused,color,size})=>{
           let iconName;
           if (route.name === "Camera") {
-            iconName = focused ? 
+            iconName = focused ?
             "ios-information-circle"
-            : 
+            :
             "ios-information-circle-outline";
           }else if (route.name === "Gallery") {
-            iconName = focused ? 
+            iconName = focused ?
             "ios-add-circle"
-            : 
+            :
             "ios-add-circle-outline";
           }else if (route.name === "Profile") {
             iconName = focused ?
             "ios-cart"
-            : 
+            :
             "ios-cart-outline";
           }
           return <Ionicons name={iconName} size={size} color={color}/>;
@@ -40,12 +40,13 @@ export default function App() {
         tabBarInactiveTintColor :"grey",
       })}
       >
-        <Tab.Screen name="Camera" component={()=><CameraScreen photos={photos} setPhotos={setPhotos} />}/>
-        <Tab.Screen name="Gallery" component={() => <Gallery photos={photos}/>}/>
-        <Tab.Screen name="Profile" component={()=><Profile setPhotos={setPhotos}/>}/>
+       
+       <Tab.Screen name="Gallery" >{(props) => <Gallery{...props} photos={photos} />}</Tab.Screen>
+        <Tab.Screen name="Camera" >{(props) => <CameraScreen{...props} photos={photos} setPhotos={setPhotos} />}</Tab.Screen>
+       
+        <Tab.Screen name="Profile" >{(props) => <Profile{...props} setPhotos={setPhotos} />}</Tab.Screen>
         
       </Tab.Navigator>
     </NavigationContainer>
   );
 }
-
