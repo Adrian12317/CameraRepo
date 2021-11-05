@@ -33,7 +33,7 @@ export default function CameraScreen({photos,setPhotos}) {
     //     }
     //   })
    console.log(photo);
-  setPhotos([photo,...photos])
+  setPhotos([photo.uri,...photos])
       
      
    };

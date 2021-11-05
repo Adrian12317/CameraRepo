@@ -3,7 +3,7 @@ import { NavigationContainer } from '@react-navigation/native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import Ionicons from 'react-native-vector-icons/Ionicons'
 import CameraScreen from './pages/Camera';
-import Gallery from './pages/Gallery';
+import GalleryScreen from './pages/Gallery';
 import Profile from './pages/Profile';
 
 
@@ -41,7 +41,7 @@ export default function App() {
       })}
       >
        
-       <Tab.Screen name="Gallery" >{(props) => <Gallery{...props} photos={photos} />}</Tab.Screen>
+       <Tab.Screen name="Gallery" >{(props) => <GalleryScreen{...props} photos={photos} />}</Tab.Screen>
         <Tab.Screen name="Camera" >{(props) => <CameraScreen{...props} photos={photos} setPhotos={setPhotos} />}</Tab.Screen>
        
         <Tab.Screen name="Profile" >{(props) => <Profile{...props} setPhotos={setPhotos} />}</Tab.Screen>
