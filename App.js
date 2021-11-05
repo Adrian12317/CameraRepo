@@ -20,19 +20,19 @@ export default function App() {
           let iconName;
           if (route.name === "Camera") {
             iconName = focused ?
-            "ios-information-circle"
+            "ios-camera"
             :
-            "ios-information-circle-outline";
+            "ios-camera-outline";
           }else if (route.name === "Gallery") {
             iconName = focused ?
-            "ios-add-circle"
+            "ios-images"
             :
-            "ios-add-circle-outline";
+            "ios-images-outline";
           }else if (route.name === "Profile") {
             iconName = focused ?
-            "ios-cart"
+            "ios-person-sharp"
             :
-            "ios-cart-outline";
+            "ios-person-outline";
           }
           return <Ionicons name={iconName} size={size} color={color}/>;
         },
